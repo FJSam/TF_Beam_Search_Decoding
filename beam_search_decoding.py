@@ -33,7 +33,7 @@ tokenizer = tf.keras.preprocessing.text.Tokenizer(num_words=top_k,
                                                   oov_token="<unk>",
                                                   filters='!"#$%&()*+.,-/:;=?@[\]^_`{|}~ ')
 tokenizer.fit_on_texts(your_vocabulary_list)  # creates a word to index dictionary
-train_seqs = tokenizer.texts_to_sequences(combined_captions)
+train_seqs = tokenizer.texts_to_sequences(your_vocabulary_list)
 max_length = calc_max_length(train_seqs)
 
 SOS_token = tokenizer.word_index['<start>']
@@ -127,9 +127,7 @@ class Base_RNN_Decoder(tf.keras.Model):
 
 class CNN_Encoder(tf.keras.Model):
     '''
-        Illustrative image encode
-        Features have already been extracted and saved using pickle
-        This encoder passes the high-level extracted features from the Inception V3 model convolutional layers through a Fully connected layer
+        Illustrative image encoder
     '''
     def __init__(self, embedding_dim):
         super(CNN_Encoder, self).__init__()
